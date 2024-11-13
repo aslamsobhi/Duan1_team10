@@ -5,13 +5,13 @@ include "navbar.php";
 include "sidebar.php";
 include "../model/pdo.php";
 include "../model/product.php";
-// include "../model/category.php";
+include "../model/category.php";
 
 // Kiểm tra quyền Admin
-if ($_SESSION['role'] != 1) {
-    echo '<script>alert("Bạn không phải Admin");window.location.href="../index.php";</script>';
-    exit();
-}
+// if ($_SESSION['role'] != 1) {
+//     echo '<script>alert("Bạn không phải Admin");window.location.href="../index.php";</script>';
+//     exit();
+// }
 
 // Điều hướng hành động
 if (isset($_GET["act"]) && $_GET["act"] != "") {

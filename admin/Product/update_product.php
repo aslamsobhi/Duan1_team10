@@ -4,7 +4,10 @@ include "../model/category.php";
 
 if (isset($_GET['id'])) {
     $product_id = $_GET['id'];
-    $product = load_product_by_id($product_id);
+    
+    // Sử dụng pdo_query_one() để lấy thông tin sản phẩm
+    $sql = "SELECT * FROM products WHERE id = :id";
+    $product = pdo_query_one($sql, ['id' => $product_id]);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = $_POST['name'];
@@ -25,7 +28,7 @@ if (isset($_GET['id'])) {
         echo '<script>alert("Cập nhật sản phẩm thành công");window.location.href="index.php?act=list_product";</script>';
     }
 
-    $categories = load_all_categories();
+    $categories = Category::getAllCategories();
 ?>
 
 <div class="content-wrapper">

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$categories = load_all_categories();
+$categories = Category::getAllCategories();
 ?>
 
 <div class="content-wrapper">
