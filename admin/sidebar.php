@@ -35,6 +35,13 @@
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <!-- Add icons to the links using the .nav-icon class with Font Awesome or any other icon font library -->
     <li class="nav-item">
+      <a href="dashboard.html" class="nav-link">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>DashBoard</p>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a href="" class="nav-link">
         <i class="nav-icon fas fa-th"></i>
         <p>Quản lý danh mục</p>
@@ -81,7 +88,14 @@
         <i class="nav-icon fas fa-chart-line"></i>
         <p>Thống kê và báo cáo doanh thu</p>
       </a>
-    </li>  
+    </li> 
+    <!-- Đăng xuất -->
+    <li class="nav-item">
+      <a href="logout.html" class="nav-link">
+        <i class="nav-icon fas fa-sign-out-alt"></i>
+        <p>Đăng xuất</p>
+      </a>
+    </li> 
   </ul>
 </nav>
 <!-- /.sidebar-menu -->

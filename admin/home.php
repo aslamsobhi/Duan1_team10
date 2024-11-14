@@ -123,31 +123,8 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row mt-3">
-                    <!-- Biểu đồ thống kê -->
-                    <div class="col-md-6">
-                        <h4>Biểu đồ doanh thu</h4>
-                        <div class="box box-primary">
-                            <div class="box-body">
-                                <canvas id="revenueChart" style="height: 250px;"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Biểu đồ sản phẩm -->
-                    <div class="col-md-6">
-                        <h4>Biểu đồ sản phẩm</h4>
-                        <div class="box box-primary">
-                            <div class="box-body">
-                                <canvas id="productChart" style="height: 250px;"></canvas>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 </div>

@@ -14,6 +14,5 @@
 <script src="/Duan1_nhom10/adminlte/plugins/jquery/jquery.min.js"></script>
 <script src="/Duan1_nhom10/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/Duan1_nhom10/adminlte/dist/js/adminlte.min.js"></script>
-<script src="js/chart.js"></script>
 </body>
 </html>

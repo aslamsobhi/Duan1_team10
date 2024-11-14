@@ -6,7 +6,6 @@
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="/Duan1_nhom10/adminlte/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="/Duan1_nhom10/adminlte/dist/css/adminlte.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
