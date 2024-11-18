@@ -48,31 +48,35 @@
                         </div>
                     </div>
 
+
                     <div class="shop-products">
                         <div class="row">
-                            <div class="col-xl-4 col-sm-6 mb--50">
+                            <?php
+                            foreach ($list_sp_danhmuc as $sp_danhmuc ) {
+                                extract($sp_danhmuc);
+                                echo'     <div class="col-xl-3 col-sm-6 mb--50">
                                 <div class="payne-product">
                                     <div class="product__inner">
                                         <div class="product__image">
                                             <figure class="product__image--holder">
-                                                <img src="img/products/product-03-270x300.jpg" alt="Product">
+                                                <img src="'.$img_path.$product_image.'" alt="Product">
                                             </figure>
-                                            <a href="product-details.html" class="product__overlay"></a>
+                                            <a href="index.php?act=chitietsp&id='.$category_id.'" class="product__overlay"></a>
                                             <div class="product__action">
                                                 <a data-bs-toggle="modal" data-bs-target="#productModal"
                                                     class="action-btn">
                                                     <i class="fa fa-eye"></i>
                                                     <span class="sr-only">Quick View</span>
                                                 </a>
-                                                <a href="wishlist.html" class="action-btn">
+                                                <a href="index.php?act=chitietsp&id='.$category_id.'" class="action-btn">
                                                     <i class="fa fa-heart-o"></i>
                                                     <span class="sr-only">Add to wishlist</span>
                                                 </a>
-                                                <a href="compare.html" class="action-btn">
+                                                <a href="index.php?act=chitietsp&id='.$category_id.'"class="action-btn">
                                                     <i class="fa fa-repeat"></i>
                                                     <span class="sr-only">Add To Compare</span>
                                                 </a>
-                                                <a href="cart.html" class="action-btn">
+                                                <a href="index.php?act=giohang" class="action-btn">
                                                     <i class="fa fa-shopping-cart"></i>
                                                     <span class="sr-only">Add To Cart</span>
                                                 </a>
@@ -81,11 +85,11 @@
                                         <div class="product__info">
                                             <div class="product__info--left">
                                                 <h3 class="product__title">
-                                                    <a href="product-details.html">Lexbaro Begadi</a>
+                                                    <a href="index.php?act=chitietsp&id='.$category_id.'">'.$name.'</a>
                                                 </h3>
                                                 <div class="product__price">
-                                                    <span class="money">132.00</span>
-                                                    <span class="sign">$</span>
+                                                    <span class="money">'.$price.'</span>
+                                                    <span class="sign">VND</span>
                                                 </div>
                                             </div>
                                             <div class="product__info--right">
@@ -100,55 +104,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="payne-product-list">
-                                    <div class="product__inner">
-                                        <figure class="product__image">
-                                            <a href="product-details.html" class="d-block">
-                                                <img src="img/products/product-03-270x300.jpg" alt="Products">
-                                            </a>
-                                            <div class="product__thumbnail-action">
-                                                <a data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    class="action-btn quick-view">
-                                                    <i class="fa fa-eye"></i>
-                                                    <span class="sr-only">Quick View</span>
-                                                </a>
-                                            </div>
-                                        </figure>
-                                        <div class="product__info">
-                                            <h3 class="product__title">
-                                                <a href="product-details.html">Lexbaro Begadi</a>
-                                            </h3>
-                                            <div class="product__price">
-                                                <span class="money">132.00</span>
-                                                <span class="sign">$</span>
-                                            </div>
-                                            <span class="product__rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </span>
-                                            <p class="product__short-description">
-                                                Donec accumsan auctor iaculis. Sed suscipit arcu ligula, at egestas
-                                                magna molestie a. Proin ac ex maximus, ultrices justo eget, sodales
-                                                orci. Aliquam egestas libero ac turpis pharetra
-                                            </p>
-                                            <div class="d-flex product__list-action">
-                                                <a href="cart.html" class="btn btn-size-sm">Add To Cart</a>
-                                                <a href="compare.html" class="action-btn">
-                                                    <i class="fa fa-repeat"></i>
-                                                    <span class="sr-only">Add To Compare</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </div>';
+                       }
+                       ?>
                         </div>
                     </div>
-
-
 
 
 
