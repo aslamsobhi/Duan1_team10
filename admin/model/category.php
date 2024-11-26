@@ -1,35 +1,67 @@
-<?php
-include_once "pdo.php";
+    <?php
+    class Category
+    {
+        // Lấy tất cả danh mục
+        public static function getAll()
+        {
+            $sql = "SELECT * FROM categories WHERE deleted_at IS NULL";
+            return pdo_query($sql);
+        }
 
-class Category {
-    
-    // Lấy tất cả danh mục
-    public static function getAllCategories() {
-        $sql = "SELECT * FROM categories ORDER BY id DESC";
-        return pdo_query($sql);
-    }
+        // Thêm danh mục mới
+        public static function insert($name)
+        {
+            $sql = "INSERT INTO categories (name, created_at) VALUES (?, NOW())";
+            pdo_execute($sql, $name);
+        }
 
-    // Lấy danh mục theo ID
-    public static function getCategoryById($id) {
-        $sql = "SELECT * FROM categories WHERE id = ?";
-        return pdo_query_one($sql, $id);
-    }
+        // Xóa danh mục
+        public static function delete($id)
+        {
+            $sql = "UPDATE categories SET deleted_at = NOW() WHERE id = ?";
+            pdo_execute($sql, $id);
+        }
 
-    // Thêm danh mục mới
-    public static function addCategory($name, $status) {
-        $sql = "INSERT INTO categories (name, status) VALUES (?, ?)";
-        return pdo_execute($sql, $name, $status);
-    }
-
-    // Cập nhật danh mục
-    public static function updateCategory($id, $name, $status) {
-        $sql = "UPDATE categories SET name = ?, status = ? WHERE id = ?";
-        return pdo_execute($sql, $name, $status, $id);
-    }
-
-    // Xóa danh mục
-    public static function deleteCategory($id) {
-        $sql = "DELETE FROM categories WHERE id = ?";
+        // Lấy thông tin danh mục theo ID
+        public static function getOne($id)
+        {
+            $sql = "SELECT * FROM categories WHERE id = ? AND deleted_at IS NULL";
+            return pdo_query_one($sql, $id);
+        }
+        public static function update($id, $name)
+        {
+            $sql = "UPDATE categories SET name = ? WHERE id = ? AND deleted_at IS NULL";
+            try {
+                return pdo_execute($sql, $name, $id);
+            } catch (PDOException $e) {
+                // Ghi lại lỗi nếu có
+                error_log($e->getMessage());
+                throw new Exception('Lỗi khi cập nhật danh mục.');
+            }
+        }
+    // Khôi phục danh mục
+    public static function restore($id)
+    {
+        $sql = "UPDATE categories SET deleted_at = NULL WHERE id = ?";
         return pdo_execute($sql, $id);
     }
-}
+    // Lấy danh sách các danh mục đã xóa mềm
+    public static function getDeletedCategories()
+    {
+        $sql = "SELECT * FROM categories WHERE deleted_at IS NOT NULL";
+        return pdo_query($sql);
+    }
+    public static function countCategories()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM categories WHERE deleted_at IS NULL";
+        $result = pdo_query_one($sql);
+    
+        // Kiểm tra kết quả
+        if ($result) {
+            return $result['total'];
+        } else {
+            return 0; // Trả về 0 nếu không có kết quả
+        }
+    }
+ }
+    ?>

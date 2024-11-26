@@ -5,26 +5,26 @@
         <!-- Danh mục -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>150</h3>
+            <h3><?= isset($totalCategories) ? $totalCategories : '0'; ?></h3>
                 <p>Danh Mục</p>
             </div>
             <div class="icon">
                 <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="index.php?act=list_categories" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-4 col-6">
         <!-- Sản phẩm -->
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>53</h3>
                 <p>Sản Phẩm</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="index.php?act=list_product" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-4 col-6">
@@ -54,7 +54,7 @@
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="index.php?act=list_user" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-4 col-6">
@@ -80,7 +80,7 @@
             <div class="icon">
                 <i class="ion ion-chatbox"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="index.php?act=list_comments" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>
@@ -123,31 +123,8 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row mt-3">
-                    <!-- Biểu đồ thống kê -->
-                    <div class="col-md-6">
-                        <h4>Biểu đồ doanh thu</h4>
-                        <div class="box box-primary">
-                            <div class="box-body">
-                                <canvas id="revenueChart" style="height: 250px;"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Biểu đồ sản phẩm -->
-                    <div class="col-md-6">
-                        <h4>Biểu đồ sản phẩm</h4>
-                        <div class="box box-primary">
-                            <div class="box-body">
-                                <canvas id="productChart" style="height: 250px;"></canvas>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 </div>

@@ -181,11 +181,11 @@
                                         <?php foreach ($load__size as $size): ?>
                                         <?php extract($size); ?>
                                         <a href="#"
-                                            class="product-size-variation-btn <?php echo $name_size === 'S' ? 'selected' : ''; ?>"
+                                            class="product-size-variation-btn <?php echo $name === 'S' ? 'selected' : ''; ?>"
                                             data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="<?php echo htmlspecialchars($name_size); ?>">
+                                            title="<?php echo htmlspecialchars($name); ?>">
                                             <span class="product-size-variation-label">
-                                                <?php echo htmlspecialchars($name_size); ?>
+                                                <?php echo htmlspecialchars($name); ?>
                                             </span>
                                         </a>
                                         <?php endforeach; ?>

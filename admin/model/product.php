@@ -1,79 +1,111 @@
 <?php
-// Thêm sản phẩm mới vào bảng products
-function insert_product($name, $price, $image, $description, $additional_description, $category_id)
-{
-    $sql = "INSERT INTO products (name, price, product_image, description, additional_description, category_id) 
-            VALUES (:name, :price, :image, :description, :additional_description, :category_id)";
-    pdo_execute($sql, ['name' => $name, 'price' => $price, 'image' => $image, 'description' => $description, 'additional_description' => $additional_description, 'category_id' => $category_id]);
-}
+require_once 'pdo.php'; // Đảm bảo file pdo.php đã được kết nối với cơ sở dữ liệu
 
-// Xóa sản phẩm theo id
-function delete_product($id)
+class Product
 {
+    // Lấy tất cả sản phẩm
+    public static function getAll() {
+        $sql = "SELECT p.id, p.name, p.price, p.created_at, p.product_image, c.name as category_name
+                FROM products p
+                LEFT JOIN categories c ON p.category_id = c.id
+                WHERE p.deleted_at IS NULL";  // Đảm bảo chỉ lấy sản phẩm chưa xóa mềm
+        return pdo_query($sql);
+    }
+
+    // Thêm sản phẩm mới
+    public static function insert($category_id, $name, $price, $description, $product_image)
+    {
+        $sql = "INSERT INTO products (category_id, name, price, description, product_image, created_at) 
+                VALUES (?, ?, ?, ?, ?, NOW())";
+        pdo_execute($sql, $category_id, $name, $price, $description, $product_image); // Thêm sản phẩm mới
+    }
+
+    // Xóa sản phẩm (Xóa mềm)
+    public static function delete($id)
+    {
+        $sql = "UPDATE products SET deleted_at = NOW() WHERE id = ?";
+        pdo_execute($sql, $id); // Xóa sản phẩm bằng cách cập nhật trường deleted_at
+    }
+
+    // Lấy thông tin sản phẩm theo ID
+    public static function getOne($id)
+    {
+        $sql = "SELECT * FROM products WHERE id = ? AND deleted_at IS NULL";
+        return pdo_query_one($sql, $id); // Lấy thông tin sản phẩm theo ID, không bao gồm sản phẩm đã xóa
+    }
+
+    // Cập nhật thông tin sản phẩm
+    public static function update($id, $category_id, $name, $price, $description, $product_image)
+    {
+        $sql = "UPDATE products SET category_id = ?, name = ?, price = ?, description = ?, product_image = ? 
+                WHERE id = ? AND deleted_at IS NULL";
+        try {
+            return pdo_execute($sql, $category_id, $name, $price, $description, $product_image, $id); // Cập nhật thông tin sản phẩm
+        } catch (PDOException $e) {
+            // Ghi lại lỗi nếu có
+            error_log($e->getMessage());
+            throw new Exception('Lỗi khi cập nhật sản phẩm.');
+        }
+    }
+
+    // Khôi phục sản phẩm đã xóa
+    public static function restore($id)
+    {
+        $sql = "UPDATE products SET deleted_at = NULL WHERE id = ?";
+        return pdo_execute($sql, $id); // Khôi phục sản phẩm đã bị xóa mềm
+    }
+
+    // Đếm tổng số sản phẩm chưa bị xóa
+    public static function countProducts()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM products WHERE deleted_at IS NULL";
+        $result = pdo_query_one($sql); // Lấy số lượng sản phẩm chưa bị xóa
+        return $result['total'];
+    }
+
+    // Lấy sản phẩm theo danh mục
+    public static function getByCategory($category_id)
+    {
+        $sql = "SELECT * FROM products WHERE category_id = ? AND deleted_at IS NULL";
+        return pdo_query($sql, $category_id); // Lấy sản phẩm theo danh mục
+    }
+
+    // Lấy sản phẩm với phân trang
+    public static function getAllWithPagination($limit, $offset)
+    {
+        $sql = "SELECT * FROM products WHERE deleted_at IS NULL LIMIT ? OFFSET ?";
+        return pdo_query($sql, $limit, $offset); // Lấy sản phẩm với phân trang
+    }
+    public static function getProductDetails($product_id) {
+        // Lấy thông tin sản phẩm từ bảng product_variants, bao gồm màu sắc và cỡ
+        $sql = "SELECT pv.id, p.name AS product_name, c.name AS color_name, s.name AS size_name, pv.quantity
+                FROM product_variants pv
+                JOIN products p ON pv.product_id = p.id
+                LEFT JOIN colors c ON pv.color_id = c.id
+                LEFT JOIN sizes s ON pv.size_id = s.id
+                WHERE pv.product_id = ? AND pv.deleted_at IS NULL";
+
+        return pdo_query($sql, $product_id); // Trả về danh sách các variant của sản phẩm
+    }
+    public static function getById($id)
+    {
+        $sql = "SELECT * FROM products WHERE id = ?";
+        return pdo_query_one($sql, $id);
+    }
+    // Phương thức lấy sản phẩm đã xóa mềm
+    public static function getArchivedProducts()
+{
+    $sql = "SELECT p.id, p.name, p.price, p.created_at, p.deleted_at, c.name AS category_name
+            FROM products p
+            LEFT JOIN categories c ON p.category_id = c.id
+            WHERE p.deleted_at IS NOT NULL";
+    return pdo_query($sql); // Trả về danh sách sản phẩm đã xóa mềm kèm tên danh mục
+}
+// Xóa vĩnh viễn
+public static function deleteForever($id) {
     $sql = "DELETE FROM products WHERE id = :id";
-    pdo_execute($sql, ['id' => $id]);
+    $stmt = pdo_execute($sql, [':id' => $id]);
+    return $stmt;
 }
-
-// Cập nhật sản phẩm theo id
-function update_product($id, $name, $price, $image, $description, $additional_description, $category_id)
-{
-    if ($image != "") {
-        $sql = "UPDATE products SET name = :name, price = :price, product_image = :image, description = :description, 
-                additional_description = :additional_description, category_id = :category_id WHERE id = :id";
-        pdo_execute($sql, ['id' => $id, 'name' => $name, 'price' => $price, 'image' => $image, 'description' => $description, 'additional_description' => $additional_description, 'category_id' => $category_id]);
-    } else {
-        $sql = "UPDATE products SET name = :name, price = :price, description = :description, 
-                additional_description = :additional_description, category_id = :category_id WHERE id = :id";
-        pdo_execute($sql, ['id' => $id, 'name' => $name, 'price' => $price, 'description' => $description, 'additional_description' => $additional_description, 'category_id' => $category_id]);
-    }
 }
-
-// Lấy tất cả sản phẩm hoặc tìm kiếm theo từ khóa hoặc danh mục
-function load_all_products($keyword = "", $category_id = 0)
-{
-    $sql = "SELECT * FROM products WHERE 1";
-    $params = [];
-
-    if ($keyword != "") {
-        $sql .= " AND name LIKE :keyword";
-        $params['keyword'] = "%$keyword%";
-    }
-
-    if ($category_id > 0) {
-        $sql .= " AND category_id = :category_id";
-        $params['category_id'] = $category_id;
-    }
-
-    $sql .= " ORDER BY id DESC";
-    return pdo_query($sql, $params);
-}
-
-// Lấy danh sách sản phẩm bán chạy theo số lượt xem
-function load_best_selling_products()
-{
-    $sql = "SELECT * FROM products WHERE view > 0 ORDER BY view DESC";
-    return pdo_query($sql);
-}
-
-// Lấy danh sách 10 sản phẩm có lượt xem cao nhất
-function load_top_10_products()
-{
-    $sql = "SELECT * FROM products ORDER BY view DESC LIMIT 10";
-    return pdo_query($sql);
-}
-
-// Tải thông tin của các sản phẩm có id trong danh sách (idList) phục vụ cho giỏ hàng
-function load_products_by_ids($idList)
-{
-    $placeholders = implode(',', array_fill(0, count($idList), '?'));
-    $sql = "SELECT * FROM products WHERE id IN ($placeholders)";
-    return pdo_query($sql, $idList);
-}
-
-// Lấy tên danh mục theo id
-function load_category_name($category_id)
-{
-    $sql = "SELECT name FROM categories WHERE id = :id";
-    $category = pdo_query_one($sql, ['id' => $category_id]);
-    return $category['name'] ?? "";
-}
+?>

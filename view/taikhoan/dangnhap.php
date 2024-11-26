@@ -1,20 +1,3 @@
-<!-- Breadcrumb area Start -->
-<section class="page-title-area bg-color" data-bg-color="#f4f4f4">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h1 class="page-title">Login &amp; Register</h1>
-                <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li class="current"><span>Login &amp; Register</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Breadcrumb area End -->
-
-<!-- Main Content Wrapper Start -->
 <div class="main-content-wrapper">
     <div class="page-content-inner pt--75 pb--80">
         <div class="container">
@@ -52,4 +35,3 @@
         </div>
     </div>
 </div>
-<!-- Main Content Wrapper Start -->

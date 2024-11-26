@@ -11,10 +11,9 @@
 <aside class="control-sidebar control-sidebar-dark">
 </aside>
 <!-- Scripts -->
-<script src="/duan1_n10/admin/adminlte/plugins/jquery/jquery.min.js"></script>
-<script src="/duan1_n10/admin/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/duan1_n10/admin/adminlte/dist/js/adminlte.min.js"></script>
-<script src="js/chart.js"></script>
+<script src="/duan1_n10/Admin/adminlte/plugins/jquery/jquery.min.js"></script>
+<script src="/duan1_n10/Admin/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/duan1_n10/Admin/adminlte/dist/js/adminlte.min.js"></script>
 </body>
 
 </html>
