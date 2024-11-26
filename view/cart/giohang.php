@@ -48,22 +48,25 @@
                                                 <td>' .$item[3]. ' VNĐ</td>
                                                 <td>' .$item[4]. '</td>
                                                 <td>' .$tt.' VNĐ</td>
-                                                <td><a href="" >xoa</a></td>
-                                                </tr>';
-                                                $i++;
-                                                
+                                                <td><a href="index.php?act=xoagiohang&remove='.$item[0].'">xoa</a></td>
+                                            </tr>';
+                                            $i++;
+
                                             }
                                             } else {
-                                                echo "<tr><td colspan='7'>Chưa có gì trong giỏ hàng</td></tr>";
+                                            echo "<tr>
+                                                <td colspan='7'>Chưa có gì trong giỏ hàng</td>
+                                            </tr>";
                                             }
                                             ?>
                                         </thead>
                                     </table>
                                 </div>
                                 <br>
-                                <a href="index.php">tiếp tục mua hàng</a> | <a href="index.php?act=xoagiohang">xoá tất |
+                                <a href="index.php">tiếp tục mua hàng</a> | <a href="index.php?act=xoagiohang">xoá tất
+                                    cả |
                                     <a href="index.php?act=thanhtoan">thanh toán
-                                        cả</a>
+                                    </a>
                             </div>
                         </div>
 

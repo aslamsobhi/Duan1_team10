@@ -32,27 +32,28 @@ $products = Product::getAll(); // Lấy tất cả sản phẩm
         </thead>
         <tbody>
             <?php foreach ($products as $product) : ?>
-                <tr>
-                    <td><?= $product['id'] ?></td>
-                    <td><?= htmlspecialchars($product['name']) ?></td>
-                    <td><?= htmlspecialchars($product['category_name']) ?></td> <!-- Hiển thị tên danh mục -->
-                    <td><?= number_format($product['price'], 0, ',', '.') ?> VND</td> <!-- Hiển thị giá sản phẩm -->
-                    <td><?= $product['created_at'] ?></td>
-                    <td>
-                        <?php if ($product['product_image']) : ?>
-                            <img src="uploads/products/<?= $product['product_image'] ?>" alt="Ảnh sản phẩm" width="50">
-                        <?php else: ?>
-                            <p>Không có ảnh</p>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <a href="index.php?act=view_product_details&id=<?= $product['id'] ?>" class="btn btn-info">Chi tiết</a>
-                        <a href="index.php?act=edit_product&id=<?= $product['id'] ?>" class="btn btn-warning">Sửa</a>
-                        <a href="index.php?act=delete_product&id=<?= $product['id'] ?>" 
-                           class="btn btn-danger" 
-                           onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">Xóa</a>
-                    </td>
-                </tr>
+            <tr>
+                <td><?= $product['id'] ?></td>
+                <td><?= htmlspecialchars($product['name']) ?></td>
+                <td><?= htmlspecialchars($product['category_name']) ?></td> <!-- Hiển thị tên danh mục -->
+                <td><?= number_format($product['price'], 0, ',', '.') ?> VND</td> <!-- Hiển thị giá sản phẩm -->
+                <td><?= $product['created_at'] ?></td>
+                <td>
+                    <?php if ($product['product_image']) : ?>
+                    <img src="/Duan1_n10/upload/<?= htmlspecialchars($product['product_image']) ?>" alt="Ảnh sản phẩm"
+                        width="50">
+                    <?php else: ?>
+                    <p>Không có ảnh</p>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <a href="index.php?act=view_product_details&id=<?= $product['id'] ?>" class="btn btn-info">Chi
+                        tiết</a>
+                    <a href="index.php?act=edit_product&id=<?= $product['id'] ?>" class="btn btn-warning">Sửa</a>
+                    <a href="index.php?act=delete_product&id=<?= $product['id'] ?>" class="btn btn-danger"
+                        onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">Xóa</a>
+                </td>
+            </tr>
             <?php endforeach; ?>
         </tbody>
     </table>

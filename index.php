@@ -68,8 +68,19 @@ if (isset($_GET['act']) && ($_GET['act'] != "")) {
             // include 'view/cart/giohang.php';
             break;
             case 'xoagiohang':
-                if (isset($_POST['giohang'])) unset($_SESSION['giohang']);
-                header('Location: index.php');
+                if (isset($_GET['remove'])) {
+                    // Đảm bảo ID là số nguyên để tránh lỗi hoặc tấn công injection
+                    $id = intval($_GET['remove']);
+                    
+                    // Kiểm tra xem sản phẩm có tồn tại trong giỏ hàng không
+                    if (isset($_SESSION['giohang'][$id])) {
+                        unset($_SESSION['giohang'][$id]); // Xóa sản phẩm khỏi giỏ hàng
+                    }
+                    
+                    // Chuyển hướng về trang giỏ hàng
+                    header('Location: index.php?act=giohang');
+                    exit();
+                }
                 break;
         case 'giohang':
             include 'view/cart/giohang.php';

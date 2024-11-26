@@ -9,7 +9,7 @@ foreach ($dssp_new as $item) {
                             <div class="product__image">
                             <form action="index.php?act=themgiohang" method="post">
                                 <figure class="product__image--holder">
-                                    <img src="img/products/'.$product_image.'" alt="Product">
+                                     <img src="'.$img_path.$product_image.'" alt="Product">
                                 </figure>
                                 <a href="index.php?act=chitietsp" class="product-overlay"></a>
                                 <div class="product__action">
